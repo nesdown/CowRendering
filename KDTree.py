@@ -69,7 +69,7 @@ def boundingBox(facets):
 
 
 def findIntersection(point1, point2, tree):
-    intersect = rayBoxIntersection(
+    intersect = rb_intersection(
         point1, point2, (tree['min'], tree['max'])
     )
 
@@ -87,12 +87,12 @@ def findIntersection(point1, point2, tree):
     intersectRight = float('inf')
 
     if tree['left'] != None:
-        intersectLeft = rayBoxIntersection(
+        intersectLeft = rb_intersection(
             point1, point2, (tree['left']['min'], tree['left']['max'])
         )
 
     if tree['right'] != None:
-        intersectRight = rayBoxIntersection(
+        intersectRight = rb_intersection(
             point1, point2, (tree['right']['min'], tree['right']['max'])
         )
 

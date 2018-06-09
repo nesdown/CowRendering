@@ -20,3 +20,14 @@ def vec_norm(vec):
     x, y, z = vec
 
     return x / len, y / len, z / len
+
+
+def vec_sum(vector1, vector2):
+    x = vector1[0] + vector2[0]
+    y = vector1[1] + vector2[1]
+    z = vector1[2] + vector2[2]
+    return x, y, z
+
+
+def vec_mult(vec, num):
+    return tuple(map(lambda v: v * num, vec))

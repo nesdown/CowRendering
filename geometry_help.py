@@ -1,4 +1,4 @@
-from vector_counts import vector, vec_norm
+from vector_counts import vector, vec_norm, vec_sum
 
 eps = 1e-8
 
@@ -102,3 +102,10 @@ def rb_intersection(point1, point2, box):
         return float('inf')
 
     return closest
+
+
+def avg_normal(normals):
+    norm1, norm2, norm3 = normals
+    normal = vec_sum(norm1, norm2)
+    normal = vec_sum(normal, norm3)
+    return vec_norm(normal)

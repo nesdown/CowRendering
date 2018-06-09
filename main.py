@@ -1,11 +1,22 @@
-import obj_parser as obj
+import obj_parser
+import tracer
+import KDTree
+import out_former
+from time import time
 
-model_name = input('Enter the name of model: ')
-# res_meshes1 = obj.get_obj_data(model_name)
-# print(res_meshes1)
+start = time()
+facets = obj_parser.get_object_config(input("Enter the model name: "), True)
 
-res_meshes = obj.get_object_config(model_name)
+cameraPos = (0.25, -1, 0.3)
+direction = (0, 1, 0)
+lightPos = (10, -10, 10)
+size = (1024, 1024)
+distance = 1
 
-obj.get_vertices(res_meshes)
-obj.get_facets(res_meshes)
-obj.get_normals(res_meshes)
+imagePlane = tracer.build_plane(size, cameraPos, direction, distance)
+tree = KDTree.buildTree(facets)
+
+image = tracer.render(cameraPos, lightPos, imagePlane, tree)
+print(time() - start)
+
+out_former.make_bmp(image, size, 'cow.bmp')

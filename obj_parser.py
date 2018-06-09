@@ -1,12 +1,21 @@
 import vector_counts
+from geometry_help import avg_normal
 from normalizer import normalize
 
 
-def get_object_config(filename):
+def get_object_config(filename, norm):
     configFile = open(filename, 'r')
-    lines = [line.strip().split() for line in configFile]
+    meshes = [mesh.strip().split() for mesh in configFile]
     configFile.close()
-    return lines
+
+    vertices = get_vertices(meshes)
+    normals = get_normals(meshes)
+
+    if norm:
+        vertices = normalize(normals)
+
+    facets = get_final_facets(vertices, get_facets(meshes))
+    return facets
 
 
 def get_vertices(model_res):
@@ -64,7 +73,7 @@ def get_final_facets(vertices, facets):
     final_facets = []
 
     for facet in facets:
-        prepared = [vertices[index - 1] for index in facet]
-        final_facets.append(prepared)
+        finalized = [vertices[index - 1] for index in facet]
+        final_facets.append(finalized)
 
     return final_facets
